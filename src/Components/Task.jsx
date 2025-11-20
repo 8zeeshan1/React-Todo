@@ -3,23 +3,27 @@ import { useTodo } from '../Contexts'
 import {nanoid} from 'nanoid'
 
 function Task() {
-        const [task, setTask] = useState()
+        const [task, setTask] = useState("")
         const {add} = useTodo()
+
         const handleSubmit = (e) => {
             e.preventDefault()
             if(!task) {
                 console.log("task not found")
                 return
             }
-            console.log(task)
             add({id: nanoid(), task: task, completed: false})
+            setTask("")
         }
+
   return (
     <div>
         Add a task:
         <form onSubmit={(e)=> handleSubmit(e)}>
-            <input onChange={(e)=>setTask(e.target.value)}
-                type='text'
+            <input 
+            type='text'
+            value={task}
+            onChange={(e)=>setTask(e.target.value)}
             />
             <button type='submit'>Add</button>
         </form>

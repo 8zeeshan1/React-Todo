@@ -17,13 +17,11 @@ function App() {
   }
 
   const add = (todo) => {
-    console.log(todo)
-    console.log(todos)
     setTodos((prev) => [todo, ...prev]) //Changed myself 
   }
 
   const complete = (id) =>{ 
-    setTodos((prev)=> prev.map((prevTodo)=> prevTodo.id === id? {...prevTodo, completed: true }: {...prevTodo}))  //changed
+    setTodos((prev)=> prev.map((prevTodo)=> prevTodo.id === id? {...prevTodo, completed: !prevTodo.completed }: {...prevTodo}))  //changed
   }
 
   useEffect(()=>{

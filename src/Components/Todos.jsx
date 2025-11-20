@@ -1,14 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useTodo } from '../Contexts/TodoContext'
 
 function Todos({todo}) {
     const [tod, settod] = useState(todo.task)
+    const {deleteTodo, complete} = useTodo()
+    const [isTodoEditable, setIsTodoEditable] = useState(false)
+
+    const handleEdit = () =>{
+      console.log("i am in the editing part of the edit button")
+       if(todo.completed){
+        setIsTodoEditable(false)
+        return
+      }
+      setIsTodoEditable(true)
+    }
+
+    const handleDone = () =>{
+      console.log("i am in done part of edit")
+      setIsTodoEditable(false)
+    }
+
   return (
     <div>
-        <input type="text" 
-        readOnly
-        value={tod}
-        onChange={(e)=>settod(e.target.value)}
-        />
+      <input type='checkbox' checked={todo.completed} onChange={(e)=>(complete(todo.id))}/>
+      <input 
+      type="text" 
+      style={todo.completed?{textDecoration: "line-through", background: "lightgreen"}: {}}
+      readOnly = {!isTodoEditable}
+      value={tod}
+      onChange={(e)=>settod(e.target.value)}
+      />
+      <button onClick={(e)=>{deleteTodo(todo.id)}}>X</button>
+      <button onClick={()=>{!isTodoEditable?handleEdit():handleDone()}}>{isTodoEditable?"Done":"Edit"}</button>
     </div>
   )
 }
