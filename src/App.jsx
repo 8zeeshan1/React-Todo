@@ -40,11 +40,13 @@ function App() {
       <TodoContextProvider value={{todos, add, update, deleteTodo, complete }}>
         <Task/>
         <hr/>
-        <h2>Todos</h2>
+        <h1 className='m-2 p-1 text-4xl '><b>Todos</b></h1>
+        <div >
         {todos.map((todo)=>
           <Todos todo = {todo} key={todo.id}/>
         )
         }
+        </div>
       </TodoContextProvider>
     </>
   )
