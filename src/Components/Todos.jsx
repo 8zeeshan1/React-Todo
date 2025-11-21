@@ -3,7 +3,7 @@ import { useTodo } from '../Contexts/TodoContext'
 
 function Todos({todo}) {
     const [tod, settod] = useState(todo.task)
-    const {deleteTodo, complete} = useTodo()
+    const {deleteTodo, complete, update} = useTodo()
     const [isTodoEditable, setIsTodoEditable] = useState(false)
 
     const handleEdit = () =>{
@@ -16,13 +16,18 @@ function Todos({todo}) {
     }
 
     const handleDone = () =>{
-      console.log("i am in done part of edit")
+      update(todo.id, tod)
       setIsTodoEditable(false)
+    }
+
+    const handleComplete = () => {
+      setIsTodoEditable(false)
+      complete(todo.id)
     }
 
   return (
     <div>
-      <input type='checkbox' checked={todo.completed} onChange={(e)=>(complete(todo.id))}/>
+      <input type='checkbox' checked={todo.completed} onChange={()=>handleComplete()}/>
       <input 
       type="text" 
       style={todo.completed?{textDecoration: "line-through", background: "lightgreen"}: {}}

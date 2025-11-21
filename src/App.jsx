@@ -13,7 +13,7 @@ function App() {
   }
 
   const update = (id, todo) =>{
-    setTodos((prev)=> prev.map((prevTodo)=> prevTodo.id === id ? todo : prevTodo))
+    setTodos((prev)=> prev.map((prevTodo)=> prevTodo.id === id ? {...prevTodo, task: todo} : prevTodo))
   }
 
   const add = (todo) => {
